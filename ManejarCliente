@@ -1,0 +1,38 @@
+package servidor;
+
+import java.io.*;
+import java.net.*;
+
+// Esta clase se ejecuta en un hilo separado para cada cliente
+public class Manejarcliente implements Runnable {
+
+    private Socket socket;
+
+    public void ManejarCliente(Socket socket) {
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        try {
+            // Entrada: leemos mensajes del cliente
+            BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // Salida: enviamos mensajes al cliente
+            PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
+
+            String mensaje;
+
+            // Leemos mensajes hasta que el cliente se desconecte
+            while ((mensaje = entrada.readLine()) != null) {
+                System.out.println("Cliente dice: " + mensaje);
+                salida.println("Servidor responde: " + mensaje);
+            }
+
+            socket.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
