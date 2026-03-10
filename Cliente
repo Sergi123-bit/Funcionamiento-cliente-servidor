@@ -1,0 +1,26 @@
+package servidor;
+
+import java.io.*;
+import java.net.*;
+
+public class Cliente {
+    public static void main(String[] args) throws IOException {
+        // Conectamos al servidor
+        Socket socket = new Socket("127.0.0.1", 5000);
+
+        // Salida: enviamos mensajes al servidor
+        PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
+
+        // Entrada: recibimos respuestas del servidor
+        BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+        // Enviamos un mensaje
+        salida.println("Hola servidor");
+
+        // Recibimos la respuesta
+        String respuesta = entrada.readLine();
+        System.out.println("El servidor respondió: " + respuesta);
+
+        socket.close();
+    }
+}
