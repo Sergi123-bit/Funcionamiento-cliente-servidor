@@ -17,7 +17,7 @@ public class Servidor {
 
             // Creamos un hilo nuevo para atender a este cliente
             // Así el servidor queda libre para aceptar el siguiente
-            new Thread(new Manejarcliente()).start();
+            new Thread(new Manejarcliente(socket)).start();
         }
     }
 }
