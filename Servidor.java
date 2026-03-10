@@ -44,6 +44,8 @@ class AtencionCliente implements Runnable {
             System.out.println("Mensaje recibido: " + mensaje);
 
             // Salida de datos: Respondemos al cliente
+            // Creamos un flujo de salida para enviar datos al cliente a través del socket
+            // El parámetro 'true' activa el "auto-flush" (vaciado automático)
             PrintWriter salida = new PrintWriter(socket.getOutputStream(), true);
             salida.println("Hola desde el servidor multicliente");
 
